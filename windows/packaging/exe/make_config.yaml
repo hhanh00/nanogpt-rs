@@ -1,0 +1,6 @@
+# script_template: "setup.iss"
+app_id: 88daeb92-b0b7-4311-9813-9bd43bbf45c0
+display_name: nanogpt
+create_desktop_icon: true
+locales:
+  - en

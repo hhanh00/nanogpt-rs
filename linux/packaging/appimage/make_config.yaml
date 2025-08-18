@@ -1,0 +1,13 @@
+display_name: nanogpt
+
+icon: misc/icon.png
+
+keywords:
+  - LLM
+
+generic_name: nanogpt
+
+metainfo: linux/packaging/nanogpt.appdata.xml
+
+categories:
+  - Education

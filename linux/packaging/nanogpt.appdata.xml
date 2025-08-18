@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>nanogpt</id>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>MIT</project_license>
+    <name>nanogpt</name>
+    <summary>NanoGPT</summary>
+    <launchable type="desktop-id">nanogpt.desktop</launchable>
+    <url type="homepage">https://github.com/hhanh00/nanogpt-rs/</url>
+    <releases>
+        <release version="1.0.0" date="2025-08-18"/>
+    </releases>
+    <provides>
+        <id>nanogpt.desktop</id>
+    </provides>
+    <content_rating type="oars-1.0" />
+    <developer id="io.github.hhanh00">
+        <name>Hanh Huynh Huu</name>
+    </developer>
+</component>
