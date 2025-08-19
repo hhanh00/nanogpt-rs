@@ -1,8 +1,8 @@
-use std::{fs::File, io::Write};
+use std::{fs::File, io::{Read, Write}};
 
 use anyhow::Result;
 use flutter_rust_bridge::frb;
-use tracing::level_filters::LevelFilter;
+use tracing::{info, level_filters::LevelFilter};
 use tracing_subscriber::{fmt::{self, format::FmtSpan}, layer::SubscriberExt as _, util::SubscriberInitExt as _, EnvFilter, Layer, Registry};
 
 #[frb]
@@ -15,8 +15,17 @@ pub async fn download_training_data(path: &str, url: &str) -> Result<()> {
 }
 
 #[frb]
-pub async fn tokenize() -> Result<()> {
+pub async fn tokenize(path: &str) -> Result<()> {
     tracing::info!("Tokenize");
+    let mut file = File::open(path)?;
+    let mut data = String::new();
+    file.read_to_string(&mut data)?;
+    info!("{}", data.len());
+    let mid = (data.len() as f64 * 0.9) as usize;
+    let (train, value) = data.split_at(mid);
+    crate::tokenize::tiktoken(train)?;
+    crate::tokenize::tiktoken(value)?;
+
     Ok(())
 }
 

@@ -6,6 +6,8 @@
 import '../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
+// These functions are ignored because they are not marked as `pub`: `default_layer`, `env_layer`
+
 Future<void> downloadTrainingData({
   required String path,
   required String url,
@@ -14,4 +16,5 @@ Future<void> downloadTrainingData({
   url: url,
 );
 
-Future<void> tokenize() => RustLib.instance.api.crateApiSimpleTokenize();
+Future<void> tokenize({required String path}) =>
+    RustLib.instance.api.crateApiSimpleTokenize(path: path);

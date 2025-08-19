@@ -42,8 +42,7 @@ class MyApp extends StatelessWidget {
   }
 
   void onDownloadTrainingData() async {
-    final path = await getApplicationDocumentsDirectory();
-    final trainingFile = File(p.join(path.path, "training.txt"));
+    final trainingFile = await getTrainingDataPath();
     await trainingFile.create();
     await downloadTrainingData(
       path: trainingFile.path,
@@ -54,6 +53,13 @@ class MyApp extends StatelessWidget {
   }
 
   void onTokenize() async {
-    await tokenize();
+    final trainingFile = await getTrainingDataPath();
+    await tokenize(path: trainingFile.path);
   }
+}
+
+Future<File> getTrainingDataPath() async {
+  final path = await getApplicationDocumentsDirectory();
+  final trainingFile = File(p.join(path.path, "training.txt"));
+  return trainingFile;
 }

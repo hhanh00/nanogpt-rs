@@ -84,7 +84,7 @@ abstract class RustLibApi extends BaseApi {
 
   Future<void> crateApiSimpleInitApp();
 
-  Future<void> crateApiSimpleTokenize();
+  Future<void> crateApiSimpleTokenize({required String path});
 }
 
 class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
@@ -158,11 +158,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "init_app", argNames: []);
 
   @override
-  Future<void> crateApiSimpleTokenize() {
+  Future<void> crateApiSimpleTokenize({required String path}) {
     return handler.executeNormal(
       NormalTask(
         callFfi: (port_) {
           final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(path, serializer);
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
@@ -175,14 +176,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           decodeErrorData: sse_decode_AnyhowException,
         ),
         constMeta: kCrateApiSimpleTokenizeConstMeta,
-        argValues: [],
+        argValues: [path],
         apiImpl: this,
       ),
     );
   }
 
   TaskConstMeta get kCrateApiSimpleTokenizeConstMeta =>
-      const TaskConstMeta(debugName: "tokenize", argNames: []);
+      const TaskConstMeta(debugName: "tokenize", argNames: ["path"]);
 
   @protected
   AnyhowException dco_decode_AnyhowException(dynamic raw) {

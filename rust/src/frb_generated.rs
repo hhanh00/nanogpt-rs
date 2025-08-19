@@ -139,11 +139,12 @@ fn wire__crate__api__simple__tokenize_impl(
             };
             let mut deserializer =
                 flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_path = <String>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
                 transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
                     (move || async move {
-                        let output_ok = crate::api::simple::tokenize().await?;
+                        let output_ok = crate::api::simple::tokenize(&api_path).await?;
                         Ok(output_ok)
                     })()
                     .await,
