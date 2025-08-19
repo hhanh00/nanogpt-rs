@@ -13,3 +13,5 @@ Future<void> downloadTrainingData({
   path: path,
   url: url,
 );
+
+Future<void> tokenize() => RustLib.instance.api.crateApiSimpleTokenize();

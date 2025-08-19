@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:nanogpt/src/rust/api/simple.dart';
 import 'package:nanogpt/src/rust/frb_generated.dart';
-import 'package:nanogpt/store.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
@@ -30,7 +29,11 @@ class MyApp extends StatelessWidget {
               icon: Icon(Icons.download),
               tooltip: "Download training data",
             ),
-            IconButton(onPressed: appStore.inc, icon: Icon(Icons.plus_one)),
+            IconButton(
+              onPressed: onTokenize,
+              icon: Icon(Icons.token),
+              tooltip: "Tokenize",
+            ),
           ],
         ),
         body: SizedBox.shrink(),
@@ -48,5 +51,9 @@ class MyApp extends StatelessWidget {
           "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt",
     );
     logger.i("Training data downloaded to ${trainingFile.path}");
+  }
+
+  void onTokenize() async {
+    await tokenize();
   }
 }
