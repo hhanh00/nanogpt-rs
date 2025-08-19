@@ -20,7 +20,6 @@ pub async fn tokenize(path: &str) -> Result<()> {
     let mut file = File::open(path)?;
     let mut data = String::new();
     file.read_to_string(&mut data)?;
-    info!("{}", data.len());
     let mid = (data.len() as f64 * 0.9) as usize;
     let (train, value) = data.split_at(mid);
     crate::tokenize::tiktoken(train)?;
