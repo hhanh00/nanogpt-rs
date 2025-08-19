@@ -1,6 +1,15 @@
-#[flutter_rust_bridge::frb(sync)] // Synchronous mode for simplicity of the demo
-pub fn greet(name: String) -> String {
-    format!("Hello, {name}!")
+use std::{fs::File, io::Write};
+
+use anyhow::Result;
+use flutter_rust_bridge::frb;
+
+#[frb]
+pub async fn download_training_data(path: &str, url: &str) -> Result<()> {
+    let rep = reqwest::get(url).await?;
+    let body = rep.text().await?;
+    let mut file = File::create(path)?;
+    write!(file, "{}", body)?;
+    Ok(())
 }
 
 #[flutter_rust_bridge::frb(init)]
