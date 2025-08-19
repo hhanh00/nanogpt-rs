@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:nanogpt/src/rust/api/simple.dart';
 import 'package:nanogpt/src/rust/frb_generated.dart';
-import 'package:nanogpt/store.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
@@ -30,7 +29,11 @@ class MyApp extends StatelessWidget {
               icon: Icon(Icons.download),
               tooltip: "Download training data",
             ),
-            IconButton(onPressed: appStore.inc, icon: Icon(Icons.plus_one)),
+            IconButton(
+              onPressed: onTokenize,
+              icon: Icon(Icons.token),
+              tooltip: "Tokenize",
+            ),
           ],
         ),
         body: SizedBox.shrink(),
@@ -39,8 +42,7 @@ class MyApp extends StatelessWidget {
   }
 
   void onDownloadTrainingData() async {
-    final path = await getApplicationDocumentsDirectory();
-    final trainingFile = File(p.join(path.path, "training.txt"));
+    final trainingFile = await getTrainingDataPath();
     await trainingFile.create();
     await downloadTrainingData(
       path: trainingFile.path,
@@ -49,4 +51,15 @@ class MyApp extends StatelessWidget {
     );
     logger.i("Training data downloaded to ${trainingFile.path}");
   }
+
+  void onTokenize() async {
+    final trainingFile = await getTrainingDataPath();
+    await tokenize(path: trainingFile.path);
+  }
+}
+
+Future<File> getTrainingDataPath() async {
+  final path = await getApplicationDocumentsDirectory();
+  final trainingFile = File(p.join(path.path, "training.txt"));
+  return trainingFile;
 }
