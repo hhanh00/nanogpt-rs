@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/hhanh00/nanogpt-rs/compare/nanogpt-v1.1.1...nanogpt-v1.2.0) (2025-08-19)
+
+
+### Features
+
+* download training data ([#5](https://github.com/hhanh00/nanogpt-rs/issues/5)) ([aa59a67](https://github.com/hhanh00/nanogpt-rs/commit/aa59a67a773830902811ca667d54afa3fe4b5d52))
+
 ## [1.1.1](https://github.com/hhanh00/nanogpt-rs/compare/nanogpt-v1.1.0...nanogpt-v1.1.1) (2025-08-18)
 
 
