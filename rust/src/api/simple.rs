@@ -2,7 +2,7 @@ use std::{fs::File, io::{Read, Write}};
 
 use anyhow::Result;
 use flutter_rust_bridge::frb;
-use tracing::{info, level_filters::LevelFilter};
+use tracing::{level_filters::LevelFilter};
 use tracing_subscriber::{fmt::{self, format::FmtSpan}, layer::SubscriberExt as _, util::SubscriberInitExt as _, EnvFilter, Layer, Registry};
 
 #[frb]
